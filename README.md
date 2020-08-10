@@ -1,14 +1,14 @@
-# :rocket: CPCB CCR client
+# CPCB CCR client
 
 An unofficial python client to obtain data from the [CPCB's CCR](https://app.cpcbccr.com/ccr/#/caaqm-dashboard-all/caaqm-landing/caaqm-comparison-data) platform directly into your python environment.
 
 
-## :computer: Installation
+## Installation
 
 ```bash
 $ pip install cpcbccr
 ```
-## :gear: Usage
+## Usage
 
 - Importing
 
@@ -42,7 +42,7 @@ $ pip install cpcbccr
 ```
 > For more supported criteria check `doc-strings`
 
-## :detective: License
+## License
 
 [MIT License](LICENSE)
 
@@ -50,7 +50,7 @@ $ pip install cpcbccr
 
 If you find an issue please report/file an issue [here](https://github.com/sakethramanujam/cpcbccr-python-client/issues/new/choose) or file a pr [here](https://github.com/sakethramanujam/cpcbccr-python-client/compare)
 
-## :dollar: Credits
+## Credits
 Made with [Python]('https://www.python.org/')
   - [requests](https://pypi.org/project/requests/)
   - [pandas](https://pypi.org/project/pandas/)
