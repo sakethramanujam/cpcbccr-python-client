@@ -46,7 +46,7 @@ $ pip install cpcbccr
 
 [MIT License](LICENSE)
 
-## :pen: Contributing
+## Contributing
 
 If you find an issue please report/file an issue [here](https://github.com/sakethramanujam/cpcbccr-python-client/issues/new/choose) or file a pr [here](https://github.com/sakethramanujam/cpcbccr-python-client/compare)
 
