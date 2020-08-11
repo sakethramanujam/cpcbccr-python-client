@@ -40,7 +40,19 @@ $ pip install cpcbccr
                          criteria='24 Hours')
 
 ```
-> For more supported criteria check `doc-strings`
+> For more supported criteria check `doc-string.`
+
+-  Save Data
+
+```
+>>> cpcb.save_data(path='/path/to/file.csv', 
+                   from_date='01-01-2020',
+                   end_date = '02-01-2020',
+                   station_id = 'site_279',
+                   criteria = '24 Hours')
+```
+> Supported Fileformats: `csv`, `xlsx`, `json`
+
 
 ## License
 
