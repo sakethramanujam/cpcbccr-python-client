@@ -149,3 +149,48 @@ def _format(json: dict) -> pd.DataFrame:
         columns.append(col)
     df.columns = columns
     return df
+
+def save_data(path:str, from_date: str, to_date: str,
+             station_id: str, criteria: str):
+    """
+    wrapper around get data method to save
+    data into a file
+    
+    Parameters
+    ----------
+    path : path to store file
+    from_date : str/ISO datetime
+                Starting Date from which data is required
+    to_date : str/ISO datetime
+              End Date until which the date is required
+    station_id : str
+                 Station Id as listed in the station dictionary
+    criteria: str
+              Frequency of data required
+              Supported Criteria
+                - 24 Hours
+                - 8 Hours
+                - 4 Hours
+                - 1 Hours
+                - 30 Minute
+                - 15 Minute
+
+
+    """
+    try:
+        formats = ['csv','xlsx','json']
+        ff = path.split('.')[-1]
+        df = get_data(from_date=from_date,
+                    to_date=to_date,
+                    station_id=station_id,
+                    criteria=criteria)
+        if ff not in formats:
+            raise Exception(f'FileFormat {ff} Not Supported!')
+        if ff == 'csv':
+            df.to_csv(path, index=False)
+        elif ff == 'excel':
+            df.to_excel(path, index=False)
+        elif ff == 'json':
+            df.to_json(path, index=False)
+    except Exception as e:
+        print(e)
