@@ -20,7 +20,7 @@ def get_states() -> List[str]:
         r = requests.get(f'{API_URL}/states')
         status = r.status_code
         if status != 200:
-            Exception(f'failed to fetch states {r.status_code}')
+            raise Exception(f'failed to fetch states {r.status_code}')
         return r.json()['states']
     except Exception as e:
         print(e)
@@ -48,7 +48,7 @@ def get_cities(state: str) -> List[str]:
         r = requests.get(f'{API_URL}/state/{state}')
         status = r.status_code
         if status != 200:
-            Exception(f'failed to fetch cities with status:{status}')
+            raise Exception(f'failed to fetch cities with status:{status}')
         return r.json()['cities']
     except Exception as e:
         print(e)
@@ -75,7 +75,7 @@ def get_stations(city: str) -> List[dict]:
         r = requests.get(f'{API_URL}/city/{city}')
         status = r.status_code
         if status != 200:
-            Exception(f'failed to fetch stations with status:{status}')
+            raise Exception(f'failed to fetch stations with status:{status}')
         return r.json()['stations']
     except Exception as e:
         print(e)
