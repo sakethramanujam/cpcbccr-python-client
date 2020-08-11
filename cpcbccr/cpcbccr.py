@@ -5,8 +5,6 @@ import pandas as pd
 
 
 API_URL = "https://love-the-air.herokuapp.com/api"
-pd.DataFrame()
-
 
 def get_states() -> List[str]:
     """
