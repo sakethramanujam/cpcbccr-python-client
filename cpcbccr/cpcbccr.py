@@ -3,8 +3,8 @@ from typing import List, Union
 import requests
 import pandas as pd
 
-
 API_URL = "https://love-the-air.herokuapp.com/api"
+
 
 def get_states() -> List[str]:
     """
@@ -16,14 +16,11 @@ def get_states() -> List[str]:
     >>> states
     ['Andhra Pradesh','Karnataka', 'Assam',....]
     """
-    try:
-        r = requests.get(f'{API_URL}/states')
-        status = r.status_code
-        if status != 200:
-            raise Exception(f'failed to fetch states {r.status_code}')
-        return r.json()['states']
-    except Exception as e:
-        print(e)
+    r = requests.get(f'{API_URL}/states')
+    status = r.status_code
+    if status != 200:
+        raise Exception(f'failed to fetch states {r.status_code}')
+    return r.json()['states']
 
 
 def get_cities(state: str) -> List[str]:
@@ -44,14 +41,11 @@ def get_cities(state: str) -> List[str]:
     >>> cities
     ['Eloor', 'Ernakulam', 'Kannur', 'Kochi', 'Kollam', 'Kozhikode', 'Thiruvananthapuram']
     """
-    try:
-        r = requests.get(f'{API_URL}/state/{state}')
-        status = r.status_code
-        if status != 200:
-            raise Exception(f'failed to fetch cities with status:{status}')
-        return r.json()['cities']
-    except Exception as e:
-        print(e)
+    r = requests.get(f'{API_URL}/state/{state}')
+    status = r.status_code
+    if status != 200:
+        raise Exception(f'failed to fetch cities with status:{status}')
+    return r.json()['cities']
 
 
 def get_stations(city: str) -> List[dict]:
@@ -71,14 +65,11 @@ def get_stations(city: str) -> List[dict]:
     >>> stations
     [{'id': 'site_5334', 'live': True, 'name': 'Polayathode, Kollam - Kerala PCB'}]
     """
-    try:
-        r = requests.get(f'{API_URL}/city/{city}')
-        status = r.status_code
-        if status != 200:
-            raise Exception(f'failed to fetch stations with status:{status}')
-        return r.json()['stations']
-    except Exception as e:
-        print(e)
+    r = requests.get(f'{API_URL}/city/{city}')
+    status = r.status_code
+    if status != 200:
+        raise Exception(f'failed to fetch stations with status:{status}')
+    return r.json()['stations']
 
 
 def get_data(from_date: str, to_date: str,
@@ -121,15 +112,12 @@ def get_data(from_date: str, to_date: str,
         "station_id": station_id,
         "criteria": criteria
     }
-    try:
-        r = requests.post(f'{API_URL}/data', json=payload)
-        status = r.status_code
-        if status == 422:
-            print(r.json())
-        elif status == 200:
-            return _format(json_data=r.json())
-    except Exception as e:
-        print(e)
+    r = requests.post(f'{API_URL}/data', json=payload)
+    status = r.status_code
+    if status == 422:
+        print(r.json())
+    elif status == 200:
+        return _format(json_data=r.json())
 
 
 def _format(json_data: dict) -> pd.DataFrame:
@@ -150,12 +138,13 @@ def _format(json_data: dict) -> pd.DataFrame:
     df.columns = columns
     return df
 
-def save_data(path:str, from_date: str, to_date: str,
-             station_id: str, criteria: str):
+
+def save_data(path: str, from_date: str, to_date: str,
+              station_id: str, criteria: str):
     """
     wrapper around get data method to save
     data into a file
-    
+
     Parameters
     ----------
     path : path to store file
@@ -174,23 +163,18 @@ def save_data(path:str, from_date: str, to_date: str,
                 - 1 Hours
                 - 30 Minute
                 - 15 Minute
-
-
     """
-    try:
-        formats = ['csv','xlsx','json']
-        ff = path.split('.')[-1]
-        df = get_data(from_date=from_date,
-                    to_date=to_date,
-                    station_id=station_id,
-                    criteria=criteria)
-        if ff not in formats:
-            raise Exception(f'FileFormat {ff} Not Supported!')
-        if ff == 'csv':
-            df.to_csv(path, index=False)
-        elif ff == 'excel':
-            df.to_excel(path, index=False)
-        elif ff == 'json':
-            df.to_json(path, index=False)
-    except Exception as e:
-        print(e)
+    formats = ['csv', 'xlsx', 'json']
+    ff = path.split('.')[-1]
+    df = get_data(from_date=from_date,
+                  to_date=to_date,
+                  station_id=station_id,
+                  criteria=criteria)
+    if ff not in formats:
+        raise Exception(f'FileFormat {ff} Not Supported!')
+    if ff == 'csv':
+        df.to_csv(path, index=False)
+    elif ff == 'excel':
+        df.to_excel(path, index=False)
+    elif ff == 'json':
+        df.to_json(path, index=False)
