@@ -127,20 +127,20 @@ def get_data(from_date: str, to_date: str,
         if status == 422:
             print(r.json())
         elif status == 200:
-            return _format(json=r.json())
+            return _format(json_data=r.json())
     except Exception as e:
         print(e)
 
 
-def _format(json: dict) -> pd.DataFrame:
+def _format(json_data: dict) -> pd.DataFrame:
     """
     Return a well formatted Dataframe from json
 
     Parameters
     ----------
-    json: json response from request response
+    json_data: json response from request response
     """
-    data = json['data']
+    data = json_data['data']
     df = pd.DataFrame(data=data).drop('exceeding', axis=1)
     columns = []
     for _, col in enumerate(df.columns):
