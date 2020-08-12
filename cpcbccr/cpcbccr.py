@@ -129,15 +129,17 @@ def _format(json_data: dict) -> pd.DataFrame:
     json_data: json response from request response
     """
     data = json_data['data']
-    df = pd.DataFrame(data=data).drop('exceeding', axis=1)
-    columns = []
-    for _, col in enumerate(df.columns):
-        if '_' in col:
-            col = col.split('_')[-1]
-        columns.append(col)
-    df.columns = columns
-    return df
-
+    if not data:
+        raise Exception("API returned empty data")
+    else:
+        df = pd.DataFrame(data=data).drop('exceeding', axis=1)
+        columns = []
+        for _, col in enumerate(df.columns):
+            if '_' in col:
+                col = col.split('_')[-1]
+            columns.append(col)
+        df.columns = columns
+        return df
 
 def save_data(path: str, from_date: str, to_date: str,
               station_id: str, criteria: str):
