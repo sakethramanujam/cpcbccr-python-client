@@ -13,7 +13,7 @@ setup(
     description="An unofficial python client to obtain cpcb ccr data",
     long_description=readme,
     long_description_content_type='text/markdown',
-    version="0.2",
+    version="0.3",
     python_requires='>=3.6',
     install_requires=['requests', 'pandas'],
     author='Saketha Ramanujam',
