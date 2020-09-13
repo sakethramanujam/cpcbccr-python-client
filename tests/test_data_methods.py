@@ -39,5 +39,3 @@ def test_get_data_failure():
     with pytest.raises(Exception):
         cpcb.get_data(from_date='01-01-2020', to_date='01-01-2020',
                       criteria='24 Hours')
-
-
