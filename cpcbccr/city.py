@@ -5,10 +5,10 @@ from typing import List
 
 class City:
     def __init__(self,city:str):
-        self.city = city
+        self.name = city
     
     def __repr__(self):
-        return f"<{self.city} object>"
+        return f"<{self.name} object>"
     
     def get_stations(self) -> List[Station]:
         """
@@ -27,7 +27,7 @@ class City:
         >>> stations
         [{'id': 'site_5334', 'live': True, 'name': 'Polayathode, Kollam - Kerala PCB'}]
         """
-        r = get(f'{API_URL}/city/{self.city}')
+        r = get(f'{API_URL}/city/{self.name}')
         status = r.status_code
         if status != 200:
             raise Exception(f'failed to fetch stations with status:{status}')

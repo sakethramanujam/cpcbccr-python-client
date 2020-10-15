@@ -6,10 +6,10 @@ from typing import List
 
 class State:
     def __init__(self, state: str):
-        self.state = state
+        self.name = state
 
     def __repr__(self):
-        return f"<object {self.state} from cpcbccr client>"
+        return f"<object {self.name} from cpcbccr client>"
 
     def get_cities(self) -> List[City]:
         """
@@ -29,11 +29,11 @@ class State:
         >>> cities
         ['Eloor', 'Ernakulam', 'Kannur', 'Kochi', 'Kollam', 'Kozhikode', 'Thiruvananthapuram']
         """
-        r = get(f'{API_URL}/state/{self.state}')
+        r = get(f'{API_URL}/state/{self.name}')
         status = r.status_code
         if status != 200:
             raise Exception(f'failed to fetch cities with status:{status}')
         if status == 200 and r.json() is None:
-            r = get(f'{API_URL}/state/{self.state}')
+            r = get(f'{API_URL}/state/{self.name}')
         cities = [City(city) for city in r.json()['cities']]
         return cities
